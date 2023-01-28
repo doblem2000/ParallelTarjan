@@ -1,0 +1,36 @@
+\hypertarget{rsg_2src_2main_8c}{}\doxysection{tools/rsg/src/main.c File Reference}
+\label{rsg_2src_2main_8c}\index{tools/rsg/src/main.c@{tools/rsg/src/main.c}}
+
+
+This tool generate a random graph with max\+\_\+n\+\_\+node node and each node have mean number of edge with a variance\+\_\+edge, the number of nodes follows the Bernoulli distribution.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}args.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for main.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rsg_2src_2main_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rsg_2src_2main_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{rsg_2src_2main_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This tool generate a random graph with max\+\_\+n\+\_\+node node and each node have mean number of edge with a variance\+\_\+edge, the number of nodes follows the Bernoulli distribution. 
+
+The first parameter is the path of graph generated. ~\newline
+The second parameter is a integer that indicate the number of node of graph. ~\newline
+The thrid parameter is an integer that indicate the the mean of edge for each node. ~\newline
+The fourth parameter is the variance of number of edge for each node. ~\newline

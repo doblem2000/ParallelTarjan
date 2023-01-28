@@ -1,0 +1,10 @@
+<map id="tools/rsg/src/main.c" name="tools/rsg/src/main.c">
+<area shape="rect" id="node1" title="This tool generate a random graph with max_n_node node and each node have mean number of edge with a ..." alt="" coords="251,5,401,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,80,167,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="191,80,266,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="291,80,361,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="386,80,453,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="477,80,540,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="565,80,629,107"/>
+</map>

@@ -1,0 +1,76 @@
+\hypertarget{cuda__graph_8c}{}\doxysection{common/src/cuda\+\_\+graph.c File Reference}
+\label{cuda__graph_8c}\index{common/src/cuda\_graph.c@{common/src/cuda\_graph.c}}
+
+
+This file contains the implementation for the operations involving the data structure cuda\+\_\+graph\+: loading from a file, cuda\+\_\+graph to graph conversion and cuda\+\_\+graph deallocation.  
+
+
+{\ttfamily \#include $<$cuda\+\_\+graph.\+h$>$}\newline
+{\ttfamily \#include $<$bitarray.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for cuda\+\_\+graph.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{cuda__graph_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+cuda\+\_\+graph\+\_\+t $\ast$ \mbox{\hyperlink{cuda__graph_8c_afc9d7ab785ad013c6c4f2ccae84cc5fb}{cuda\+\_\+graph\+\_\+load\+\_\+from\+\_\+file}} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em This function loads a cuda\+\_\+graph from a file. \end{DoxyCompactList}\item 
+graph\+\_\+t $\ast$ \mbox{\hyperlink{cuda__graph_8c_a3b019615186b85101f527189b9476e6a}{cuda\+\_\+graph\+\_\+to\+\_\+graph}} (cuda\+\_\+graph\+\_\+t $\ast$G, int $\ast$deleted\+\_\+bitarray)
+\begin{DoxyCompactList}\small\item\em This function converts a cuda\+\_\+graph in a graph, ignoring the nodes marked in the bitmask. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{cuda__graph_8c_a0ea7f03a87d0524a642f60dc66b0d535}\label{cuda__graph_8c_a0ea7f03a87d0524a642f60dc66b0d535}} 
+void \mbox{\hyperlink{cuda__graph_8c_a0ea7f03a87d0524a642f60dc66b0d535}{cuda\+\_\+graph\+\_\+free}} (cuda\+\_\+graph\+\_\+t $\ast$G)
+\begin{DoxyCompactList}\small\item\em This function deallocates a cuda\+\_\+graph. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{cuda__graph_8c_a3e91e0bce8f8a64d41da1ba06d589725}\label{cuda__graph_8c_a3e91e0bce8f8a64d41da1ba06d589725}} 
+void \mbox{\hyperlink{cuda__graph_8c_a3e91e0bce8f8a64d41da1ba06d589725}{cuda\+\_\+graph\+\_\+print\+\_\+debug}} (cuda\+\_\+graph\+\_\+t $\ast$G)
+\begin{DoxyCompactList}\small\item\em This function prints the content of a cuda\+\_\+graph on stdout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the implementation for the operations involving the data structure cuda\+\_\+graph\+: loading from a file, cuda\+\_\+graph to graph conversion and cuda\+\_\+graph deallocation. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{cuda__graph_8c_afc9d7ab785ad013c6c4f2ccae84cc5fb}\label{cuda__graph_8c_afc9d7ab785ad013c6c4f2ccae84cc5fb}} 
+\index{cuda\_graph.c@{cuda\_graph.c}!cuda\_graph\_load\_from\_file@{cuda\_graph\_load\_from\_file}}
+\index{cuda\_graph\_load\_from\_file@{cuda\_graph\_load\_from\_file}!cuda\_graph.c@{cuda\_graph.c}}
+\doxysubsubsection{\texorpdfstring{cuda\_graph\_load\_from\_file()}{cuda\_graph\_load\_from\_file()}}
+{\footnotesize\ttfamily cuda\+\_\+graph\+\_\+t$\ast$ cuda\+\_\+graph\+\_\+load\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+This function loads a cuda\+\_\+graph from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the name of the file to be loaded. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The loaded cuda\+\_\+graph 
+\end{DoxyReturn}
+\mbox{\Hypertarget{cuda__graph_8c_a3b019615186b85101f527189b9476e6a}\label{cuda__graph_8c_a3b019615186b85101f527189b9476e6a}} 
+\index{cuda\_graph.c@{cuda\_graph.c}!cuda\_graph\_to\_graph@{cuda\_graph\_to\_graph}}
+\index{cuda\_graph\_to\_graph@{cuda\_graph\_to\_graph}!cuda\_graph.c@{cuda\_graph.c}}
+\doxysubsubsection{\texorpdfstring{cuda\_graph\_to\_graph()}{cuda\_graph\_to\_graph()}}
+{\footnotesize\ttfamily graph\+\_\+t$\ast$ cuda\+\_\+graph\+\_\+to\+\_\+graph (\begin{DoxyParamCaption}\item[{cuda\+\_\+graph\+\_\+t $\ast$}]{G,  }\item[{int $\ast$}]{deleted\+\_\+bitarray }\end{DoxyParamCaption})}
+
+
+
+This function converts a cuda\+\_\+graph in a graph, ignoring the nodes marked in the bitmask. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & the cuda\+\_\+graph that must be converted \\
+\hline
+{\em deleted\+\_\+bitarray} & the bitmask containing the nodes that must be ignored during the converion \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the resulting graph 
+\end{DoxyReturn}

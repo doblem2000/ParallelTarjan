@@ -1,0 +1,300 @@
+\hypertarget{linkedlist_8c}{}\doxysection{common/src/linkedlist.c File Reference}
+\label{linkedlist_8c}\index{common/src/linkedlist.c@{common/src/linkedlist.c}}
+
+
+This file implements the abstract data type linkedlist.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}linkedlist.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+Include dependency graph for linkedlist.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linkedlist_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em This struct represents the node of the list data structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}}
+\begin{DoxyCompactList}\small\item\em This struct represents the linkedlist data structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{linkedlist_8c_ab1e2a78b3d26fd368b7e81c89371227f}\label{linkedlist_8c_ab1e2a78b3d26fd368b7e81c89371227f}} 
+typedef struct linkedlist\+\_\+ptr {\bfseries linkedlist\+\_\+ptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} $\ast$ \mbox{\hyperlink{linkedlist_8c_aea41dcd0981b9ef14f1a835b7f5b4830}{node\+Create}} (int info)
+\begin{DoxyCompactList}\small\item\em This function takes an integer as input and creates a new \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_a29783f4cb477f5518e387d4bd81abf9e}{node\+Destroy}} (\mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} $\ast$n)
+\begin{DoxyCompactList}\small\item\em This function takes a \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} node as input and deallocates it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$ \mbox{\hyperlink{linkedlist_8c_ae562bbe5abcdcd986e0831a16819e1f4}{linkedlist\+\_\+int\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em This function generates and initializes a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_abb6e08f6feecbea16c6dab821f0ebc1e}{linkedlist\+\_\+int\+\_\+free}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and deallocates the occupied memory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{linkedlist_8c_a934bb8cf0e714924c7e9c293b6a22ba8}{linkedlist\+\_\+int\+\_\+length}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and returns the number of nodes contained in it. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}{linkedlist\+\_\+int\+\_\+push}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a, int elem)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer. It inserts the element passed as input at the last position in the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} can work like a Stack data structure if the \mbox{\hyperlink{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}{linkedlist\+\_\+int\+\_\+pop()}} and \mbox{\hyperlink{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}{linkedlist\+\_\+int\+\_\+push()}} functions are used. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}{linkedlist\+\_\+int\+\_\+pop}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. It removes the element at the last position in the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} can work like a Stack data structure if the \mbox{\hyperlink{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}{linkedlist\+\_\+int\+\_\+pop()}} and \mbox{\hyperlink{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}{linkedlist\+\_\+int\+\_\+push()}} functions are used. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_add4a8101bf33fdf3f494f0a45550f5e1}{linkedlist\+\_\+int\+\_\+insert}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a, int elem)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer to insert. It inserts the element passed as input into the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works as an ordered list data structure if the insert and remove functions are used. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_a7ade1ae9ddf912be057a98233bc0662c}{linkedlist\+\_\+int\+\_\+delete}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a, int elem)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer. It removes the element passed as input from the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works like a ordered list data structure if the insert and remove functions are used. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}{linkedlist\+\_\+int\+\_\+enqueue}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a, int elem)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer to insert. It inserts the element passed as input into the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works like a queue data structure if the \mbox{\hyperlink{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}{linkedlist\+\_\+int\+\_\+enqueue()}} and \mbox{\hyperlink{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}{linkedlist\+\_\+int\+\_\+dequeue()}} functions are used. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}{linkedlist\+\_\+int\+\_\+dequeue}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. It removes the element at the top of the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works like a queue data structure if the \mbox{\hyperlink{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}{linkedlist\+\_\+int\+\_\+enqueue()}} and \mbox{\hyperlink{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}{linkedlist\+\_\+int\+\_\+dequeue()}} functions are used. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{linkedlist_8c_aba85c7c233baa9fbd631f032cce24577}{linkedlist\+\_\+int\+\_\+print}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em This function prints all nodes in the \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}}. ~\newline
+ \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{linkedlist_8c_ab617b34ee5c8b79d92384e406221def0}{linkedlist\+\_\+int\+\_\+top}} (\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em This function returns the element at the top of the \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file implements the abstract data type linkedlist. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{linkedlist_8c_a7ade1ae9ddf912be057a98233bc0662c}\label{linkedlist_8c_a7ade1ae9ddf912be057a98233bc0662c}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_delete@{linkedlist\_int\_delete}}
+\index{linkedlist\_int\_delete@{linkedlist\_int\_delete}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_delete()}{linkedlist\_int\_delete()}}
+{\footnotesize\ttfamily void linkedlist\+\_\+int\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a,  }\item[{int}]{elem }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer. It removes the element passed as input from the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works like a ordered list data structure if the insert and remove functions are used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+{\em elem} & is an integer which represents the elem to be deleted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}\label{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_dequeue@{linkedlist\_int\_dequeue}}
+\index{linkedlist\_int\_dequeue@{linkedlist\_int\_dequeue}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_dequeue()}{linkedlist\_int\_dequeue()}}
+{\footnotesize\ttfamily int linkedlist\+\_\+int\+\_\+dequeue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. It removes the element at the top of the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works like a queue data structure if the \mbox{\hyperlink{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}{linkedlist\+\_\+int\+\_\+enqueue()}} and \mbox{\hyperlink{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}{linkedlist\+\_\+int\+\_\+dequeue()}} functions are used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}\label{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_enqueue@{linkedlist\_int\_enqueue}}
+\index{linkedlist\_int\_enqueue@{linkedlist\_int\_enqueue}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_enqueue()}{linkedlist\_int\_enqueue()}}
+{\footnotesize\ttfamily void linkedlist\+\_\+int\+\_\+enqueue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a,  }\item[{int}]{elem }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer to insert. It inserts the element passed as input into the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works like a queue data structure if the \mbox{\hyperlink{linkedlist_8c_a7cd3d9c0d1d9066e00367f906ebe9a12}{linkedlist\+\_\+int\+\_\+enqueue()}} and \mbox{\hyperlink{linkedlist_8c_a60a6417ffdb8d8e515dddc59788aebbb}{linkedlist\+\_\+int\+\_\+dequeue()}} functions are used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+{\em elem} & is an integer which represents the elem to be inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedlist_8c_abb6e08f6feecbea16c6dab821f0ebc1e}\label{linkedlist_8c_abb6e08f6feecbea16c6dab821f0ebc1e}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_free@{linkedlist\_int\_free}}
+\index{linkedlist\_int\_free@{linkedlist\_int\_free}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_free()}{linkedlist\_int\_free()}}
+{\footnotesize\ttfamily void linkedlist\+\_\+int\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and deallocates the occupied memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedlist_8c_ae562bbe5abcdcd986e0831a16819e1f4}\label{linkedlist_8c_ae562bbe5abcdcd986e0831a16819e1f4}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_init@{linkedlist\_int\_init}}
+\index{linkedlist\_int\_init@{linkedlist\_int\_init}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_init()}{linkedlist\_int\_init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}}$\ast$ linkedlist\+\_\+int\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function generates and initializes a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. 
+
+\begin{DoxyReturn}{Returns}
+linkedlist\+\_\+int$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedlist_8c_add4a8101bf33fdf3f494f0a45550f5e1}\label{linkedlist_8c_add4a8101bf33fdf3f494f0a45550f5e1}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_insert@{linkedlist\_int\_insert}}
+\index{linkedlist\_int\_insert@{linkedlist\_int\_insert}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_insert()}{linkedlist\_int\_insert()}}
+{\footnotesize\ttfamily void linkedlist\+\_\+int\+\_\+insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a,  }\item[{int}]{elem }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer to insert. It inserts the element passed as input into the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} works as an ordered list data structure if the insert and remove functions are used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+{\em elem} & is an integer which represents the elem to be inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedlist_8c_a934bb8cf0e714924c7e9c293b6a22ba8}\label{linkedlist_8c_a934bb8cf0e714924c7e9c293b6a22ba8}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_length@{linkedlist\_int\_length}}
+\index{linkedlist\_int\_length@{linkedlist\_int\_length}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_length()}{linkedlist\_int\_length()}}
+{\footnotesize\ttfamily int linkedlist\+\_\+int\+\_\+length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and returns the number of nodes contained in it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}\label{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_pop@{linkedlist\_int\_pop}}
+\index{linkedlist\_int\_pop@{linkedlist\_int\_pop}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_pop()}{linkedlist\_int\_pop()}}
+{\footnotesize\ttfamily int linkedlist\+\_\+int\+\_\+pop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. It removes the element at the last position in the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} can work like a Stack data structure if the \mbox{\hyperlink{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}{linkedlist\+\_\+int\+\_\+pop()}} and \mbox{\hyperlink{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}{linkedlist\+\_\+int\+\_\+push()}} functions are used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedlist_8c_aba85c7c233baa9fbd631f032cce24577}\label{linkedlist_8c_aba85c7c233baa9fbd631f032cce24577}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_print@{linkedlist\_int\_print}}
+\index{linkedlist\_int\_print@{linkedlist\_int\_print}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_print()}{linkedlist\_int\_print()}}
+{\footnotesize\ttfamily void linkedlist\+\_\+int\+\_\+print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+This function prints all nodes in the \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}}. ~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}\label{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_push@{linkedlist\_int\_push}}
+\index{linkedlist\_int\_push@{linkedlist\_int\_push}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_push()}{linkedlist\_int\_push()}}
+{\footnotesize\ttfamily void linkedlist\+\_\+int\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a,  }\item[{int}]{elem }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure and an integer. It inserts the element passed as input at the last position in the data structure. ~\newline
+ The \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} can work like a Stack data structure if the \mbox{\hyperlink{linkedlist_8c_a9db82676c83e7b847b5635a0cf855ba9}{linkedlist\+\_\+int\+\_\+pop()}} and \mbox{\hyperlink{linkedlist_8c_a9bfdac9ca25931df683d6c14bf6fdf17}{linkedlist\+\_\+int\+\_\+push()}} functions are used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+{\em elem} & is an integer which represents the elem to be inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedlist_8c_ab617b34ee5c8b79d92384e406221def0}\label{linkedlist_8c_ab617b34ee5c8b79d92384e406221def0}} 
+\index{linkedlist.c@{linkedlist.c}!linkedlist\_int\_top@{linkedlist\_int\_top}}
+\index{linkedlist\_int\_top@{linkedlist\_int\_top}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{linkedlist\_int\_top()}{linkedlist\_int\_top()}}
+{\footnotesize\ttfamily int linkedlist\+\_\+int\+\_\+top (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+This function returns the element at the top of the \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. ~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedlist_8c_aea41dcd0981b9ef14f1a835b7f5b4830}\label{linkedlist_8c_aea41dcd0981b9ef14f1a835b7f5b4830}} 
+\index{linkedlist.c@{linkedlist.c}!nodeCreate@{nodeCreate}}
+\index{nodeCreate@{nodeCreate}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{nodeCreate()}{nodeCreate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}}$\ast$ node\+Create (\begin{DoxyParamCaption}\item[{int}]{info }\end{DoxyParamCaption})}
+
+
+
+This function takes an integer as input and creates a new \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em info} & an integer representing the information stored by the node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+lnode\+\_\+int\+\_\+t$\ast$. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedlist_8c_a29783f4cb477f5518e387d4bd81abf9e}\label{linkedlist_8c_a29783f4cb477f5518e387d4bd81abf9e}} 
+\index{linkedlist.c@{linkedlist.c}!nodeDestroy@{nodeDestroy}}
+\index{nodeDestroy@{nodeDestroy}!linkedlist.c@{linkedlist.c}}
+\doxysubsubsection{\texorpdfstring{nodeDestroy()}{nodeDestroy()}}
+{\footnotesize\ttfamily void node\+Destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+This function takes a \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} node as input and deallocates it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & pointer to \mbox{\hyperlink{structlnode__int__t}{lnode\+\_\+int\+\_\+t}} node. \\
+\hline
+\end{DoxyParams}

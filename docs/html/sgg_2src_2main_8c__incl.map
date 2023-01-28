@@ -1,0 +1,9 @@
+<map id="tools/sgg/src/main.c" name="tools/sgg/src/main.c">
+<area shape="rect" id="node1" title="This tool generate graph fully connected, graph fully disconnected or graph bipartite." alt="" coords="201,5,353,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,80,167,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="191,80,266,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="291,80,361,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="386,80,453,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="477,80,540,107"/>
+</map>

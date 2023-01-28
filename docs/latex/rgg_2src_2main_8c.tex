@@ -1,0 +1,43 @@
+\hypertarget{rgg_2src_2main_8c}{}\doxysection{tools/rgg/src/main.c File Reference}
+\label{rgg_2src_2main_8c}\index{tools/rgg/src/main.c@{tools/rgg/src/main.c}}
+
+
+This tool generates a graph starting from a seed.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}args.\+h\char`\"{}}\newline
+Include dependency graph for main.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rgg_2src_2main_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rgg_2src_2main_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{rgg_2src_2main_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This tool generates a graph starting from a seed. 
+
+This tool uses an interger n to generate a graph with 2$^\wedge$n replicas of the seed keeping all the edges already present in the seed, in addition edges are added between the different seeds of the final graph following the probability passed. ~\newline
+The first parameter is the path of seed graph. ~\newline
+The second parameter is the path of graph generated. ~\newline
+The thrid parameter is an integer n that indicate the 2$^\wedge$n copy to be created. ~\newline
+The fourth parameter is the probability of create an edge between a node of a copy and another and viceversa. ~\newline
+ Es\+: seed 10 edge and second parameter 1 graph generated 20 edge. ~\newline
+ ~\newline
+ Es\+: seed 10 edge and second parameter 2 graph generated 40 edge. ~\newline
+ ~\newline
+ Es\+: seed 10 edge and second parameter 3 graph generated 80 edge. ~\newline
+ ~\newline
+ Es\+: seed 10 edge and second parameter 4 graph generated 160 edge. ~\newline

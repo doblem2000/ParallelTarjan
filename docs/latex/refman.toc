@@ -1,0 +1,93 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Class Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Class List}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}File Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Class Documentation}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}linkedlist\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}int Struct Reference}{5}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Detailed Description}{5}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}lnode\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}int\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}t Struct Reference}{6}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Detailed Description}{6}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}scc\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}set\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}t Struct Reference}{6}{section.3.3}%
+\contentsline {chapter}{\numberline {4}File Documentation}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}common/src/cuda\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}graph.c File Reference}{7}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{8}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Function Documentation}{8}{subsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.2.1}cuda\_graph\_load\_from\_file()}{8}{subsubsection.4.1.2.1}%
+\contentsline {subsubsection}{\numberline {4.1.2.2}cuda\_graph\_to\_graph()}{8}{subsubsection.4.1.2.2}%
+\contentsline {section}{\numberline {4.2}common/src/graph.c File Reference}{8}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{11}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Function Documentation}{11}{subsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.2.1}graph\_copy()}{11}{subsubsection.4.2.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2.2}graph\_delete\_edge()}{11}{subsubsection.4.2.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.2.3}graph\_delete\_vertex()}{12}{subsubsection.4.2.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.2.4}graph\_deserialize()}{12}{subsubsection.4.2.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.2.5}graph\_free()}{12}{subsubsection.4.2.2.5}%
+\contentsline {subsubsection}{\numberline {4.2.2.6}graph\_fully\_connected\_disconnected()}{13}{subsubsection.4.2.2.6}%
+\contentsline {subsubsection}{\numberline {4.2.2.7}graph\_get\_num\_vertex()}{13}{subsubsection.4.2.2.7}%
+\contentsline {subsubsection}{\numberline {4.2.2.8}graph\_init()}{13}{subsubsection.4.2.2.8}%
+\contentsline {subsubsection}{\numberline {4.2.2.9}graph\_insert\_edge()}{14}{subsubsection.4.2.2.9}%
+\contentsline {subsubsection}{\numberline {4.2.2.10}graph\_insert\_vertex()}{14}{subsubsection.4.2.2.10}%
+\contentsline {subsubsection}{\numberline {4.2.2.11}graph\_load\_from\_file()}{14}{subsubsection.4.2.2.11}%
+\contentsline {subsubsection}{\numberline {4.2.2.12}graph\_merge()}{15}{subsubsection.4.2.2.12}%
+\contentsline {subsubsection}{\numberline {4.2.2.13}graph\_merge\_vertices()}{15}{subsubsection.4.2.2.13}%
+\contentsline {subsubsection}{\numberline {4.2.2.14}graph\_print\_debug()}{15}{subsubsection.4.2.2.14}%
+\contentsline {subsubsection}{\numberline {4.2.2.15}graph\_random()}{16}{subsubsection.4.2.2.15}%
+\contentsline {subsubsection}{\numberline {4.2.2.16}graph\_save\_to\_file()}{16}{subsubsection.4.2.2.16}%
+\contentsline {subsubsection}{\numberline {4.2.2.17}graph\_serialize()}{16}{subsubsection.4.2.2.17}%
+\contentsline {subsubsection}{\numberline {4.2.2.18}graph\_tarjan()}{17}{subsubsection.4.2.2.18}%
+\contentsline {subsubsection}{\numberline {4.2.2.19}graph\_tarjan\_foreach()}{17}{subsubsection.4.2.2.19}%
+\contentsline {subsubsection}{\numberline {4.2.2.20}graph\_tarjan\_foreach\_helper()}{18}{subsubsection.4.2.2.20}%
+\contentsline {subsubsection}{\numberline {4.2.2.21}graph\_tarjan\_helper()}{18}{subsubsection.4.2.2.21}%
+\contentsline {subsubsection}{\numberline {4.2.2.22}min()}{19}{subsubsection.4.2.2.22}%
+\contentsline {subsubsection}{\numberline {4.2.2.23}scc\_set\_add()}{19}{subsubsection.4.2.2.23}%
+\contentsline {subsubsection}{\numberline {4.2.2.24}scc\_set\_contains()}{20}{subsubsection.4.2.2.24}%
+\contentsline {subsubsection}{\numberline {4.2.2.25}scc\_set\_free()}{20}{subsubsection.4.2.2.25}%
+\contentsline {subsubsection}{\numberline {4.2.2.26}scc\_set\_init()}{20}{subsubsection.4.2.2.26}%
+\contentsline {subsubsection}{\numberline {4.2.2.27}scc\_set\_load\_from\_file()}{20}{subsubsection.4.2.2.27}%
+\contentsline {subsubsection}{\numberline {4.2.2.28}scc\_set\_merge()}{21}{subsubsection.4.2.2.28}%
+\contentsline {subsubsection}{\numberline {4.2.2.29}scc\_set\_print\_debug()}{21}{subsubsection.4.2.2.29}%
+\contentsline {subsubsection}{\numberline {4.2.2.30}scc\_set\_save\_to\_file()}{21}{subsubsection.4.2.2.30}%
+\contentsline {section}{\numberline {4.3}common/src/linkedlist.c File Reference}{22}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Detailed Description}{23}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Function Documentation}{23}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.1}linkedlist\_int\_delete()}{23}{subsubsection.4.3.2.1}%
+\contentsline {subsubsection}{\numberline {4.3.2.2}linkedlist\_int\_dequeue()}{24}{subsubsection.4.3.2.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.3}linkedlist\_int\_enqueue()}{24}{subsubsection.4.3.2.3}%
+\contentsline {subsubsection}{\numberline {4.3.2.4}linkedlist\_int\_free()}{24}{subsubsection.4.3.2.4}%
+\contentsline {subsubsection}{\numberline {4.3.2.5}linkedlist\_int\_init()}{26}{subsubsection.4.3.2.5}%
+\contentsline {subsubsection}{\numberline {4.3.2.6}linkedlist\_int\_insert()}{26}{subsubsection.4.3.2.6}%
+\contentsline {subsubsection}{\numberline {4.3.2.7}linkedlist\_int\_length()}{26}{subsubsection.4.3.2.7}%
+\contentsline {subsubsection}{\numberline {4.3.2.8}linkedlist\_int\_pop()}{27}{subsubsection.4.3.2.8}%
+\contentsline {subsubsection}{\numberline {4.3.2.9}linkedlist\_int\_print()}{27}{subsubsection.4.3.2.9}%
+\contentsline {subsubsection}{\numberline {4.3.2.10}linkedlist\_int\_push()}{27}{subsubsection.4.3.2.10}%
+\contentsline {subsubsection}{\numberline {4.3.2.11}linkedlist\_int\_top()}{28}{subsubsection.4.3.2.11}%
+\contentsline {subsubsection}{\numberline {4.3.2.12}nodeCreate()}{28}{subsubsection.4.3.2.12}%
+\contentsline {subsubsection}{\numberline {4.3.2.13}nodeDestroy()}{28}{subsubsection.4.3.2.13}%
+\contentsline {section}{\numberline {4.4}common/src/random.c File Reference}{29}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{29}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Function Documentation}{29}{subsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.1}rand\_bernoulli()}{29}{subsubsection.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.4.2.2}rand\_binomial()}{30}{subsubsection.4.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.3}rand\_binomial\_2()}{30}{subsubsection.4.4.2.3}%
+\contentsline {section}{\numberline {4.5}common\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}mpi/src/mpi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}logic.c File Reference}{31}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Detailed Description}{32}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Function Documentation}{32}{subsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.1}callback()}{32}{subsubsection.4.5.2.1}%
+\contentsline {subsubsection}{\numberline {4.5.2.2}master\_schedule()}{32}{subsubsection.4.5.2.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.3}master\_work()}{33}{subsubsection.4.5.2.3}%
+\contentsline {subsubsection}{\numberline {4.5.2.4}master\_work2()}{33}{subsubsection.4.5.2.4}%
+\contentsline {subsubsection}{\numberline {4.5.2.5}slave\_work()}{34}{subsubsection.4.5.2.5}%
+\contentsline {section}{\numberline {4.6}tools/rsg/src/main.c File Reference}{34}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Detailed Description}{34}{subsection.4.6.1}%
+\contentsline {section}{\numberline {4.7}tools/rgg/src/main.c File Reference}{35}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Detailed Description}{35}{subsection.4.7.1}%
+\contentsline {section}{\numberline {4.8}tools/sgg/src/main.c File Reference}{36}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Detailed Description}{36}{subsection.4.8.1}%
+\contentsline {section}{\numberline {4.9}tools/print-\/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}SCC/src/main.c File Reference}{36}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Detailed Description}{37}{subsection.4.9.1}%
+\contentsline {section}{\numberline {4.10}tools/print-\/graph/src/main.c File Reference}{37}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}Detailed Description}{38}{subsection.4.10.1}%
+\contentsline {section}{\numberline {4.11}tools/compare/src/main.c File Reference}{38}{section.4.11}%
+\contentsline {subsection}{\numberline {4.11.1}Detailed Description}{38}{subsection.4.11.1}%
+\contentsline {chapter}{Index}{39}{section*.31}%

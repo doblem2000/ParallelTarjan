@@ -1,0 +1,160 @@
+\hypertarget{mpi__logic_8c}{}\doxysection{common\+\_\+mpi/src/mpi\+\_\+logic.c File Reference}
+\label{mpi__logic_8c}\index{common\_mpi/src/mpi\_logic.c@{common\_mpi/src/mpi\_logic.c}}
+
+
+This file implements a version of a parallelization of Tarjan\textquotesingle{}s algorithm.  
+
+
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mpi\+\_\+logic.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}measurement.\+h\char`\"{}}\newline
+Include dependency graph for mpi\+\_\+logic.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{mpi__logic_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{mpi__logic_8c_a755b505d86588dd13b5a0d5af215db4d}{callback}} (array\+\_\+int $\ast$scc)
+\begin{DoxyCompactList}\small\item\em This is a callback function. It is called every time the Tarjan\textquotesingle{}algorithm, run by a slave process on a portion of the graph, finds an scc. ~\newline
+ The slave process sends the found scc to the master node along with its size. ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mpi__logic_8c_afe4519dc9cac0f0c0e30f8718a357cad}{master\+\_\+schedule}} (graph\+\_\+t $\ast$graph, int N, int n\+\_\+slaves, \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$SCCs)
+\item 
+void \mbox{\hyperlink{mpi__logic_8c_a0a487f136cb96d7df1937358a6a3a3e5}{master\+\_\+work}} (int rank, int size, char $\ast$filename, char $\ast$outputfilename)
+\begin{DoxyCompactList}\small\item\em The master node calls this function. ~\newline
+ The function takes as input the name of a binary file that contains a graph represented by an adjacency map. ~\newline
+ The master\+\_\+work function takes care of extracting the contents of the binary file and converting it into a graph, then calls the \mbox{\hyperlink{mpi__logic_8c_a3d6bdb6c07e7023c6a252d9ae031cd6e}{master\+\_\+work2()}} function to execute the MPI algorithm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mpi__logic_8c_a3d6bdb6c07e7023c6a252d9ae031cd6e}{master\+\_\+work2}} (int rank, int size, graph\+\_\+t $\ast$graph, \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$SCCs, char $\ast$outputfilename, double time\+\_\+init)
+\begin{DoxyCompactList}\small\item\em This function is called by the master node. ~\newline
+ The function takes as input the graph and an empty set, which will be filled with the scc found by Tarjan\textquotesingle{}s algorithm. ~\newline
+ The function divides the graph into chunks of fixed size and will delegate the work to be done on the chunks to the \mbox{\hyperlink{mpi__logic_8c_afe4519dc9cac0f0c0e30f8718a357cad}{master\+\_\+schedule()}} function. ~\newline
+ In addition, the function is responsible of sending the termination message to all slave processes. This happens when all the work is done. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mpi__logic_8c_aa80b6078ca0ba039351ce42580f896ec}{slave\+\_\+work}} (int rank)
+\begin{DoxyCompactList}\small\item\em This function is called by the slave nodes. The function receives messages containing the portion of the graph on which the slave node must find the scc through Tarjan\textquotesingle{}s algorithm. ~\newline
+ The function ends when a master node sends a special termination message. The termination message is a message specifying that the size of the next message is 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{mpi__logic_8c_a13387bd68de59db8c1ae6ca4e0d82619}\label{mpi__logic_8c_a13387bd68de59db8c1ae6ca4e0d82619}} 
+double {\bfseries time\+\_\+split\+\_\+graph} = 0.\+0
+\item 
+\mbox{\Hypertarget{mpi__logic_8c_ab31d5a47c24ebad4468bc9eceb39836e}\label{mpi__logic_8c_ab31d5a47c24ebad4468bc9eceb39836e}} 
+double {\bfseries time\+\_\+merge\+\_\+graph} = 0.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file implements a version of a parallelization of Tarjan\textquotesingle{}s algorithm. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mpi__logic_8c_a755b505d86588dd13b5a0d5af215db4d}\label{mpi__logic_8c_a755b505d86588dd13b5a0d5af215db4d}} 
+\index{mpi\_logic.c@{mpi\_logic.c}!callback@{callback}}
+\index{callback@{callback}!mpi\_logic.c@{mpi\_logic.c}}
+\doxysubsubsection{\texorpdfstring{callback()}{callback()}}
+{\footnotesize\ttfamily void callback (\begin{DoxyParamCaption}\item[{array\+\_\+int $\ast$}]{scc }\end{DoxyParamCaption})}
+
+
+
+This is a callback function. It is called every time the Tarjan\textquotesingle{}algorithm, run by a slave process on a portion of the graph, finds an scc. ~\newline
+ The slave process sends the found scc to the master node along with its size. ~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scc} & It is the scc discovered from the Tarjan\textquotesingle{}s algorithm. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mpi__logic_8c_afe4519dc9cac0f0c0e30f8718a357cad}\label{mpi__logic_8c_afe4519dc9cac0f0c0e30f8718a357cad}} 
+\index{mpi\_logic.c@{mpi\_logic.c}!master\_schedule@{master\_schedule}}
+\index{master\_schedule@{master\_schedule}!mpi\_logic.c@{mpi\_logic.c}}
+\doxysubsubsection{\texorpdfstring{master\_schedule()}{master\_schedule()}}
+{\footnotesize\ttfamily void master\+\_\+schedule (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{graph,  }\item[{int}]{N,  }\item[{int}]{n\+\_\+slaves,  }\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{SCCs }\end{DoxyParamCaption})}
+
+The function takes as input the graph, the size of the chunk, the number of slave processes and the data structure where to save all the scc found. ~\newline
+ The function sends a chunk of the graph to each slave node. Then, it waits for the slave nodes to find the scc by applying Tarjan\textquotesingle{}s algorithm on their chunk of the graph. As soon as a slave node finishes execution, the master node assigns it another chunk of the graph. ~\newline
+ The iterations terminate as soon as the whole graph for the fixed chunk size has been completed by the slave nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & graph on which compute all the scc. \\
+\hline
+{\em N} & represents the chunk size. \\
+\hline
+{\em n\+\_\+slaves} & number of slave precesses. \\
+\hline
+{\em SCCs} & data structure where to save all the scc found. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mpi__logic_8c_a0a487f136cb96d7df1937358a6a3a3e5}\label{mpi__logic_8c_a0a487f136cb96d7df1937358a6a3a3e5}} 
+\index{mpi\_logic.c@{mpi\_logic.c}!master\_work@{master\_work}}
+\index{master\_work@{master\_work}!mpi\_logic.c@{mpi\_logic.c}}
+\doxysubsubsection{\texorpdfstring{master\_work()}{master\_work()}}
+{\footnotesize\ttfamily void master\+\_\+work (\begin{DoxyParamCaption}\item[{int}]{rank,  }\item[{int}]{size,  }\item[{char $\ast$}]{filename,  }\item[{char $\ast$}]{outputfilename }\end{DoxyParamCaption})}
+
+
+
+The master node calls this function. ~\newline
+ The function takes as input the name of a binary file that contains a graph represented by an adjacency map. ~\newline
+ The master\+\_\+work function takes care of extracting the contents of the binary file and converting it into a graph, then calls the \mbox{\hyperlink{mpi__logic_8c_a3d6bdb6c07e7023c6a252d9ae031cd6e}{master\+\_\+work2()}} function to execute the MPI algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rank} & id of the process within the communicator. \\
+\hline
+{\em size} & size of the communicator. \\
+\hline
+{\em filename} & name of the file that contains a graph represented by an adjacency map. \\
+\hline
+{\em outputfilename} & name of the output binary file that will contain all the scc found. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mpi__logic_8c_a3d6bdb6c07e7023c6a252d9ae031cd6e}\label{mpi__logic_8c_a3d6bdb6c07e7023c6a252d9ae031cd6e}} 
+\index{mpi\_logic.c@{mpi\_logic.c}!master\_work2@{master\_work2}}
+\index{master\_work2@{master\_work2}!mpi\_logic.c@{mpi\_logic.c}}
+\doxysubsubsection{\texorpdfstring{master\_work2()}{master\_work2()}}
+{\footnotesize\ttfamily void master\+\_\+work2 (\begin{DoxyParamCaption}\item[{int}]{rank,  }\item[{int}]{size,  }\item[{graph\+\_\+t $\ast$}]{graph,  }\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{SCCs,  }\item[{char $\ast$}]{outputfilename,  }\item[{double}]{time\+\_\+init }\end{DoxyParamCaption})}
+
+
+
+This function is called by the master node. ~\newline
+ The function takes as input the graph and an empty set, which will be filled with the scc found by Tarjan\textquotesingle{}s algorithm. ~\newline
+ The function divides the graph into chunks of fixed size and will delegate the work to be done on the chunks to the \mbox{\hyperlink{mpi__logic_8c_afe4519dc9cac0f0c0e30f8718a357cad}{master\+\_\+schedule()}} function. ~\newline
+ In addition, the function is responsible of sending the termination message to all slave processes. This happens when all the work is done. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rank} & id of the process within the communicator. \\
+\hline
+{\em size} & size of the communicator. \\
+\hline
+{\em graph} & graph that will be computed in order to find its sccs. \\
+\hline
+{\em SCCs} & empty set which will be filled with the scc found by Tarjan\textquotesingle{}s algorithm. \\
+\hline
+{\em outputfilename} & name of the output binary file that will contain all the scc found. \\
+\hline
+{\em time\+\_\+init} & initialization time. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mpi__logic_8c_aa80b6078ca0ba039351ce42580f896ec}\label{mpi__logic_8c_aa80b6078ca0ba039351ce42580f896ec}} 
+\index{mpi\_logic.c@{mpi\_logic.c}!slave\_work@{slave\_work}}
+\index{slave\_work@{slave\_work}!mpi\_logic.c@{mpi\_logic.c}}
+\doxysubsubsection{\texorpdfstring{slave\_work()}{slave\_work()}}
+{\footnotesize\ttfamily void slave\+\_\+work (\begin{DoxyParamCaption}\item[{int}]{rank }\end{DoxyParamCaption})}
+
+
+
+This function is called by the slave nodes. The function receives messages containing the portion of the graph on which the slave node must find the scc through Tarjan\textquotesingle{}s algorithm. ~\newline
+ The function ends when a master node sends a special termination message. The termination message is a message specifying that the size of the next message is 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rank} & id of the process within the communicator. \\
+\hline
+\end{DoxyParams}

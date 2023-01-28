@@ -1,0 +1,667 @@
+\hypertarget{graph_8c}{}\doxysection{common/src/graph.c File Reference}
+\label{graph_8c}\index{common/src/graph.c@{common/src/graph.c}}
+
+
+This file implements the abstract data type graph with adjacency maps. It also contains basic operation on the graph (vertices and edges insert and deletion) as well as specific operations needed by the $\ast$ $\ast$ MPI and CUDA algorithms. The file also defines the scc\+\_\+set data structure which is used to store SCCs found by Tarjan\textquotesingle{}s algorithm as well as operations on this data structure.  
+
+
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}khash.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}linkedlist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}random.\+h\char`\"{}}\newline
+Include dependency graph for graph.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{graph_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{graph_8c_abd8bbcfabb3ddef2ccaafb9928a37b95}{min}} (int a, int b)
+\begin{DoxyCompactList}\small\item\em This function takes two integers as input and returns the minimum integer. \end{DoxyCompactList}\item 
+graph\+\_\+t $\ast$ \mbox{\hyperlink{graph_8c_acb56aa20d2f47ee35347989c47c38c7b}{graph\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em This function declares and initializes an empty graph\+\_\+t data structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a6c364ebe0da93e37d279244116905e49}{graph\+\_\+free}} (graph\+\_\+t $\ast$G)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph\+\_\+t data structure and takes care of deallocating the entire memory occupied by the data structure. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{graph_8c_a675413568799b0a7566348aa77f25d15}{graph\+\_\+get\+\_\+num\+\_\+vertex}} (graph\+\_\+t $\ast$G)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph\+\_\+t data structure and returns the number of vertices in the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a5e2ce4d852eac3d59f53edd8983e8c1b}{graph\+\_\+insert\+\_\+vertex}} (graph\+\_\+t $\ast$G, int v)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph\+\_\+t data structure and a vertex v; it takes care of inserting the vertex v within the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a9031f7f1870c39cc2cba0aa5608058d8}{graph\+\_\+insert\+\_\+edge}} (graph\+\_\+t $\ast$G, int u, int v)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph\+\_\+t data structure and two vertices u and v. It takes care of inserting an edge from vertex u to vertex v of the graph. ~\newline
+ Throws an error is the edge already exists. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a5e77b2c8fde09a7f5ba0516bda570d13}{graph\+\_\+delete\+\_\+edge}} (graph\+\_\+t $\ast$G, int u, int v)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph\+\_\+t data structure and two vertices u and v. It deletes the edge from the node u to the node v if it exists. Otherwise does nothing. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_ac5f98c1011c7e0f02f3ddfdfd04b557b}{graph\+\_\+delete\+\_\+vertex}} (graph\+\_\+t $\ast$G, int v)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph\+\_\+t data structure and a vertex v. It deletes the vertex v and every edge incident on the vertex. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_ab67410d3c53f6f1f92908be8a90ad995}{graph\+\_\+tarjan\+\_\+helper}} (graph\+\_\+t $\ast$G, int node, khash\+\_\+t(m32) $\ast$disc, khash\+\_\+t(m32) $\ast$low, \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$stack, khash\+\_\+t(m32) $\ast$stack\+Member, int $\ast$time, array\+\_\+int $\ast$result)
+\begin{DoxyCompactList}\small\item\em This function is an helper function for \mbox{\hyperlink{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}{graph\+\_\+tarjan()}}. For more info see documentation for \mbox{\hyperlink{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}{graph\+\_\+tarjan()}}. \end{DoxyCompactList}\item 
+array\+\_\+int $\ast$ \mbox{\hyperlink{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}{graph\+\_\+tarjan}} (graph\+\_\+t $\ast$G)
+\begin{DoxyCompactList}\small\item\em This function is a Tarjan\textquotesingle{}s algorithm implementation using recursion. ~\newline
+ This is a modified version of the algorithm on the geeksforgeeks.\+com website. ~\newline
+ The main differences are\+: ~\newline
+ -\/ disc, low and stack\+Member are now hash tables because we remove the hypotesis that vertex ids go from 0 to N-\/1\+: ~\newline
+ when working on a subgraph (as a slave process), there are no guarantees on the order nor continuity of the vertex ids. ~\newline
+ Using hash tables instead of arrays we save a lot of memory. ~\newline
+ -\/ we remove the hypotesis that every vertex in an adjacency map exists in the graph. This is also caused by executions ~\newline
+ on subgraphs of a given graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_aa167e922a8e42481edb364dd723eb3d4}{graph\+\_\+tarjan\+\_\+foreach\+\_\+helper}} (graph\+\_\+t $\ast$G, int node, khash\+\_\+t(m32) $\ast$disc, khash\+\_\+t(m32) $\ast$low, \mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$stack, khash\+\_\+t(m32) $\ast$stack\+Member, int $\ast$time, array\+\_\+int $\ast$scc, void($\ast$f)(array\+\_\+int $\ast$))
+\begin{DoxyCompactList}\small\item\em This function is an helper function for \mbox{\hyperlink{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}{graph\+\_\+tarjan\+\_\+foreach()}}. For more info see documentation for \mbox{\hyperlink{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}{graph\+\_\+tarjan\+\_\+foreach()}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}{graph\+\_\+tarjan\+\_\+foreach}} (graph\+\_\+t $\ast$G, void($\ast$f)(array\+\_\+int $\ast$))
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph and a callback function f. It finds all the SCCs in the graph and each time it finds one it calls the callback function f on the SCC. \end{DoxyCompactList}\item 
+array\+\_\+int $\ast$ \mbox{\hyperlink{graph_8c_a3873eaea6c1f17fa7028b7946872600d}{graph\+\_\+serialize}} (graph\+\_\+t $\ast$G, int n, khint\+\_\+t $\ast$bucket)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph, the number of vertices to be serialized n, and a variable to store the reference to the adicence map. ~\newline
+ The function returns an array of integers representing the serialization of the first n vertices of the graph. ~\newline
+ In other words, we go from a representation using pointers to a representation that uses integers only. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_ae8e0eca0161365f9770e5d45c834cf6d}{graph\+\_\+deserialize}} (graph\+\_\+t $\ast$G, array\+\_\+int $\ast$buff)
+\begin{DoxyCompactList}\small\item\em This function takes as input an array representing a deserialized graph and a reference to a graph. ~\newline
+ The function transforms the serialized representation of the graph to a graph\+\_\+t representation via pointers on which all library operations are defined. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_ae33cfb273887bd4349d2e42b4064e2d2}{graph\+\_\+save\+\_\+to\+\_\+file}} (graph\+\_\+t $\ast$G, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em This function takes as input a graph and a string. It serializes the input graph and stores it on a binary file. \end{DoxyCompactList}\item 
+graph\+\_\+t $\ast$ \mbox{\hyperlink{graph_8c_af05df5d8c6999573ba0e334c7f6ae513}{graph\+\_\+load\+\_\+from\+\_\+file}} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em This function takes a string as input. It extracts a serialized graph from a file and returns a graph in the graph\+\_\+t format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a0ed97650c201c27efbe59c6f2717504c}{graph\+\_\+merge\+\_\+vertices}} (graph\+\_\+t $\ast$G, int dest, array\+\_\+int $\ast$src)
+\begin{DoxyCompactList}\small\item\em This function takes as input graph, a vertex identifier \textquotesingle{}dest\textquotesingle{} and an array of vertices. It merges all vertices in the array into the vertex \textquotesingle{}dest\textquotesingle{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a9c8eef1d5e51a9ade0a654f9ad5c685b}{graph\+\_\+merge}} (graph\+\_\+t $\ast$to, graph\+\_\+t $\ast$from, double p)
+\begin{DoxyCompactList}\small\item\em Merge 2 graph and the merged graph is in graph\+\_\+t $\ast$ to. \end{DoxyCompactList}\item 
+graph\+\_\+t $\ast$ \mbox{\hyperlink{graph_8c_ac919cab75554fcb6dd20f1c5607c68e7}{graph\+\_\+random}} (int max\+\_\+n\+\_\+node, int mean\+\_\+edges, double variance\+\_\+edges)
+\begin{DoxyCompactList}\small\item\em create a random graph with max\+\_\+n\+\_\+node node and each node have mean number of edge with a variance\+\_\+edge \end{DoxyCompactList}\item 
+graph\+\_\+t $\ast$ \mbox{\hyperlink{graph_8c_a08acc1ae6d4796ac961a68dd767233b2}{graph\+\_\+fully\+\_\+connected\+\_\+disconnected}} (int max\+\_\+n\+\_\+node, int is\+Fully\+Connected)
+\begin{DoxyCompactList}\small\item\em create a graph fully connected or fully disconnected with max\+\_\+n\+\_\+node \end{DoxyCompactList}\item 
+graph\+\_\+t $\ast$ \mbox{\hyperlink{graph_8c_a5362c8bcda308f3fb35f7262afb05396}{graph\+\_\+copy}} (graph\+\_\+t $\ast$from)
+\begin{DoxyCompactList}\small\item\em geneate a copy of a graph \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_aaa8e50b85caf53ed334f81361bd9c19d}{graph\+\_\+print\+\_\+debug}} (graph\+\_\+t $\ast$G)
+\begin{DoxyCompactList}\small\item\em print on standard output graph in input\+: number of edged, for earch line node -\/$>$ adjacency list and node-\/$>$ inverted adjacency list \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$ \mbox{\hyperlink{graph_8c_a5e1742aecae1a04047d8206cc2d95c48}{scc\+\_\+set\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize a new scc\+\_\+set. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a8c6cfd0e1a260549cffd6e1dc95a48b2}{scc\+\_\+set\+\_\+free}} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$S)
+\begin{DoxyCompactList}\small\item\em Destroy an scc\+\_\+set. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a8549c916368233448ccf00534b504749}{scc\+\_\+set\+\_\+add}} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$S, int scc\+\_\+id, array\+\_\+int $\ast$nodes)
+\begin{DoxyCompactList}\small\item\em Add a new SCC to the set handling merges if needed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a74ea6f1044877da655f14a3a1ce2fb30}{scc\+\_\+set\+\_\+print\+\_\+debug}} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$S)
+\begin{DoxyCompactList}\small\item\em print an scc\+\_\+set \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graph_8c_a7dbb2e7d19233634bfaddc3634a43a68}{scc\+\_\+set\+\_\+merge}} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$src)
+\begin{DoxyCompactList}\small\item\em Merge src scc\+\_\+set into dest. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{graph_8c_a682977e02dc5974253b0022488fe5468}{scc\+\_\+set\+\_\+contains}} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$b, \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Check if scc set b contains all of scc set a\textquotesingle{}s content. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{graph_8c_a6c6a48fdae7bd73b1ca4d88f00213a83}\label{graph_8c_a6c6a48fdae7bd73b1ca4d88f00213a83}} 
+array\+\_\+int $\ast$ {\bfseries scc\+\_\+set\+\_\+serialize} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$S)
+\item 
+\mbox{\Hypertarget{graph_8c_acc68d0a35098cd09c81eef58ac345427}\label{graph_8c_acc68d0a35098cd09c81eef58ac345427}} 
+void {\bfseries scc\+\_\+set\+\_\+deserialize} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$S, array\+\_\+int $\ast$buff)
+\item 
+void \mbox{\hyperlink{graph_8c_a403d34ed9cdcf8b1db1afb0367fb59c9}{scc\+\_\+set\+\_\+save\+\_\+to\+\_\+file}} (\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$S, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Write scc set to file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$ \mbox{\hyperlink{graph_8c_a3ba807e3fbeeed224587d3a609b84b9b}{scc\+\_\+set\+\_\+load\+\_\+from\+\_\+file}} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Load scc set from file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file implements the abstract data type graph with adjacency maps. It also contains basic operation on the graph (vertices and edges insert and deletion) as well as specific operations needed by the $\ast$ $\ast$ MPI and CUDA algorithms. The file also defines the scc\+\_\+set data structure which is used to store SCCs found by Tarjan\textquotesingle{}s algorithm as well as operations on this data structure. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{graph_8c_a5362c8bcda308f3fb35f7262afb05396}\label{graph_8c_a5362c8bcda308f3fb35f7262afb05396}} 
+\index{graph.c@{graph.c}!graph\_copy@{graph\_copy}}
+\index{graph\_copy@{graph\_copy}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_copy()}{graph\_copy()}}
+{\footnotesize\ttfamily graph\+\_\+t$\ast$ graph\+\_\+copy (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{from }\end{DoxyParamCaption})}
+
+
+
+geneate a copy of a graph 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & graph to be copied \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+graph\+\_\+t$\ast$ graph generated 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a5e77b2c8fde09a7f5ba0516bda570d13}\label{graph_8c_a5e77b2c8fde09a7f5ba0516bda570d13}} 
+\index{graph.c@{graph.c}!graph\_delete\_edge@{graph\_delete\_edge}}
+\index{graph\_delete\_edge@{graph\_delete\_edge}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_delete\_edge()}{graph\_delete\_edge()}}
+{\footnotesize\ttfamily void graph\+\_\+delete\+\_\+edge (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{u,  }\item[{int}]{v }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph\+\_\+t data structure and two vertices u and v. It deletes the edge from the node u to the node v if it exists. Otherwise does nothing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em u} & vertex of the graph. \\
+\hline
+{\em v} & vertex of the graph. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_ac5f98c1011c7e0f02f3ddfdfd04b557b}\label{graph_8c_ac5f98c1011c7e0f02f3ddfdfd04b557b}} 
+\index{graph.c@{graph.c}!graph\_delete\_vertex@{graph\_delete\_vertex}}
+\index{graph\_delete\_vertex@{graph\_delete\_vertex}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_delete\_vertex()}{graph\_delete\_vertex()}}
+{\footnotesize\ttfamily void graph\+\_\+delete\+\_\+vertex (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{v }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph\+\_\+t data structure and a vertex v. It deletes the vertex v and every edge incident on the vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & input graph \\
+\hline
+{\em v} & vertex to be deleted \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_ae8e0eca0161365f9770e5d45c834cf6d}\label{graph_8c_ae8e0eca0161365f9770e5d45c834cf6d}} 
+\index{graph.c@{graph.c}!graph\_deserialize@{graph\_deserialize}}
+\index{graph\_deserialize@{graph\_deserialize}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_deserialize()}{graph\_deserialize()}}
+{\footnotesize\ttfamily void graph\+\_\+deserialize (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{array\+\_\+int $\ast$}]{buff }\end{DoxyParamCaption})}
+
+
+
+This function takes as input an array representing a deserialized graph and a reference to a graph. ~\newline
+ The function transforms the serialized representation of the graph to a graph\+\_\+t representation via pointers on which all library operations are defined. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em buff} & array representing a deserialized graph. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a6c364ebe0da93e37d279244116905e49}\label{graph_8c_a6c364ebe0da93e37d279244116905e49}} 
+\index{graph.c@{graph.c}!graph\_free@{graph\_free}}
+\index{graph\_free@{graph\_free}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_free()}{graph\_free()}}
+{\footnotesize\ttfamily void graph\+\_\+free (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph\+\_\+t data structure and takes care of deallocating the entire memory occupied by the data structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure to be deallocated. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a08acc1ae6d4796ac961a68dd767233b2}\label{graph_8c_a08acc1ae6d4796ac961a68dd767233b2}} 
+\index{graph.c@{graph.c}!graph\_fully\_connected\_disconnected@{graph\_fully\_connected\_disconnected}}
+\index{graph\_fully\_connected\_disconnected@{graph\_fully\_connected\_disconnected}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_fully\_connected\_disconnected()}{graph\_fully\_connected\_disconnected()}}
+{\footnotesize\ttfamily graph\+\_\+t$\ast$ graph\+\_\+fully\+\_\+connected\+\_\+disconnected (\begin{DoxyParamCaption}\item[{int}]{max\+\_\+n\+\_\+node,  }\item[{int}]{is\+Fully\+Connected }\end{DoxyParamCaption})}
+
+
+
+create a graph fully connected or fully disconnected with max\+\_\+n\+\_\+node 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+\_\+n\+\_\+node} & number of node of graph \\
+\hline
+{\em is\+Fully\+Connected} & 0 create a fully disconneted graph 1 create a fully connected graph \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+graph\+\_\+t$\ast$ graph generated 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a675413568799b0a7566348aa77f25d15}\label{graph_8c_a675413568799b0a7566348aa77f25d15}} 
+\index{graph.c@{graph.c}!graph\_get\_num\_vertex@{graph\_get\_num\_vertex}}
+\index{graph\_get\_num\_vertex@{graph\_get\_num\_vertex}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_get\_num\_vertex()}{graph\_get\_num\_vertex()}}
+{\footnotesize\ttfamily int graph\+\_\+get\+\_\+num\+\_\+vertex (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph\+\_\+t data structure and returns the number of vertices in the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure of which we want to know the number of vertices. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_acb56aa20d2f47ee35347989c47c38c7b}\label{graph_8c_acb56aa20d2f47ee35347989c47c38c7b}} 
+\index{graph.c@{graph.c}!graph\_init@{graph\_init}}
+\index{graph\_init@{graph\_init}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_init()}{graph\_init()}}
+{\footnotesize\ttfamily graph\+\_\+t$\ast$ graph\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function declares and initializes an empty graph\+\_\+t data structure. 
+
+\begin{DoxyReturn}{Returns}
+graph\+\_\+t$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a9031f7f1870c39cc2cba0aa5608058d8}\label{graph_8c_a9031f7f1870c39cc2cba0aa5608058d8}} 
+\index{graph.c@{graph.c}!graph\_insert\_edge@{graph\_insert\_edge}}
+\index{graph\_insert\_edge@{graph\_insert\_edge}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_insert\_edge()}{graph\_insert\_edge()}}
+{\footnotesize\ttfamily void graph\+\_\+insert\+\_\+edge (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{u,  }\item[{int}]{v }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph\+\_\+t data structure and two vertices u and v. It takes care of inserting an edge from vertex u to vertex v of the graph. ~\newline
+ Throws an error is the edge already exists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em u} & vertex of the graph. \\
+\hline
+{\em v} & vertex of the graph. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a5e2ce4d852eac3d59f53edd8983e8c1b}\label{graph_8c_a5e2ce4d852eac3d59f53edd8983e8c1b}} 
+\index{graph.c@{graph.c}!graph\_insert\_vertex@{graph\_insert\_vertex}}
+\index{graph\_insert\_vertex@{graph\_insert\_vertex}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_insert\_vertex()}{graph\_insert\_vertex()}}
+{\footnotesize\ttfamily void graph\+\_\+insert\+\_\+vertex (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{v }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph\+\_\+t data structure and a vertex v; it takes care of inserting the vertex v within the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em v} & vertex to be inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_af05df5d8c6999573ba0e334c7f6ae513}\label{graph_8c_af05df5d8c6999573ba0e334c7f6ae513}} 
+\index{graph.c@{graph.c}!graph\_load\_from\_file@{graph\_load\_from\_file}}
+\index{graph\_load\_from\_file@{graph\_load\_from\_file}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_load\_from\_file()}{graph\_load\_from\_file()}}
+{\footnotesize\ttfamily graph\+\_\+t$\ast$ graph\+\_\+load\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+This function takes a string as input. It extracts a serialized graph from a file and returns a graph in the graph\+\_\+t format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & string representing the filename of the input file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a9c8eef1d5e51a9ade0a654f9ad5c685b}\label{graph_8c_a9c8eef1d5e51a9ade0a654f9ad5c685b}} 
+\index{graph.c@{graph.c}!graph\_merge@{graph\_merge}}
+\index{graph\_merge@{graph\_merge}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_merge()}{graph\_merge()}}
+{\footnotesize\ttfamily void graph\+\_\+merge (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{to,  }\item[{graph\+\_\+t $\ast$}]{from,  }\item[{double}]{p }\end{DoxyParamCaption})}
+
+
+
+Merge 2 graph and the merged graph is in graph\+\_\+t $\ast$ to. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em to} & graph with vertex index from 0 to graph\+\_\+get\+\_\+num\+\_\+vertex(to) \\
+\hline
+{\em from} & graph with vertex index from 0 to graph\+\_\+get\+\_\+num\+\_\+vertex(from) \\
+\hline
+{\em p} & probability of create an edge between a node of graph from and a node of graph to and viceversa \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a0ed97650c201c27efbe59c6f2717504c}\label{graph_8c_a0ed97650c201c27efbe59c6f2717504c}} 
+\index{graph.c@{graph.c}!graph\_merge\_vertices@{graph\_merge\_vertices}}
+\index{graph\_merge\_vertices@{graph\_merge\_vertices}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_merge\_vertices()}{graph\_merge\_vertices()}}
+{\footnotesize\ttfamily void graph\+\_\+merge\+\_\+vertices (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{dest,  }\item[{array\+\_\+int $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+
+This function takes as input graph, a vertex identifier \textquotesingle{}dest\textquotesingle{} and an array of vertices. It merges all vertices in the array into the vertex \textquotesingle{}dest\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em dest} & a vertex identifier. \\
+\hline
+{\em src} & an array of vertices. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_aaa8e50b85caf53ed334f81361bd9c19d}\label{graph_8c_aaa8e50b85caf53ed334f81361bd9c19d}} 
+\index{graph.c@{graph.c}!graph\_print\_debug@{graph\_print\_debug}}
+\index{graph\_print\_debug@{graph\_print\_debug}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_print\_debug()}{graph\_print\_debug()}}
+{\footnotesize\ttfamily void graph\+\_\+print\+\_\+debug (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G }\end{DoxyParamCaption})}
+
+
+
+print on standard output graph in input\+: number of edged, for earch line node -\/$>$ adjacency list and node-\/$>$ inverted adjacency list 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph to be printed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_ac919cab75554fcb6dd20f1c5607c68e7}\label{graph_8c_ac919cab75554fcb6dd20f1c5607c68e7}} 
+\index{graph.c@{graph.c}!graph\_random@{graph\_random}}
+\index{graph\_random@{graph\_random}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_random()}{graph\_random()}}
+{\footnotesize\ttfamily graph\+\_\+t$\ast$ graph\+\_\+random (\begin{DoxyParamCaption}\item[{int}]{max\+\_\+n\+\_\+node,  }\item[{int}]{mean\+\_\+edges,  }\item[{double}]{variance\+\_\+edges }\end{DoxyParamCaption})}
+
+
+
+create a random graph with max\+\_\+n\+\_\+node node and each node have mean number of edge with a variance\+\_\+edge 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+\_\+n\+\_\+node} & number of node of graph \\
+\hline
+{\em mean\+\_\+edges} & mean edge for each node \\
+\hline
+{\em variance\+\_\+edges} & variance of number of edge for each node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+graph\+\_\+t$\ast$ graph generated 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_ae33cfb273887bd4349d2e42b4064e2d2}\label{graph_8c_ae33cfb273887bd4349d2e42b4064e2d2}} 
+\index{graph.c@{graph.c}!graph\_save\_to\_file@{graph\_save\_to\_file}}
+\index{graph\_save\_to\_file@{graph\_save\_to\_file}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_save\_to\_file()}{graph\_save\_to\_file()}}
+{\footnotesize\ttfamily void graph\+\_\+save\+\_\+to\+\_\+file (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph and a string. It serializes the input graph and stores it on a binary file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em filename} & string representing the filename of the output file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a3873eaea6c1f17fa7028b7946872600d}\label{graph_8c_a3873eaea6c1f17fa7028b7946872600d}} 
+\index{graph.c@{graph.c}!graph\_serialize@{graph\_serialize}}
+\index{graph\_serialize@{graph\_serialize}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_serialize()}{graph\_serialize()}}
+{\footnotesize\ttfamily array\+\_\+int$\ast$ graph\+\_\+serialize (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{n,  }\item[{khint\+\_\+t $\ast$}]{bucket }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph, the number of vertices to be serialized n, and a variable to store the reference to the adicence map. ~\newline
+ The function returns an array of integers representing the serialization of the first n vertices of the graph. ~\newline
+ In other words, we go from a representation using pointers to a representation that uses integers only. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em n} & number of vertices to be serialized. \\
+\hline
+{\em bucket} & variable to store the reference to the adicence map. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\+\_\+int$\ast$ array of integers representing the serialization of the first n vertices. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}\label{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}} 
+\index{graph.c@{graph.c}!graph\_tarjan@{graph\_tarjan}}
+\index{graph\_tarjan@{graph\_tarjan}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_tarjan()}{graph\_tarjan()}}
+{\footnotesize\ttfamily array\+\_\+int$\ast$ graph\+\_\+tarjan (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G }\end{DoxyParamCaption})}
+
+
+
+This function is a Tarjan\textquotesingle{}s algorithm implementation using recursion. ~\newline
+ This is a modified version of the algorithm on the geeksforgeeks.\+com website. ~\newline
+ The main differences are\+: ~\newline
+ -\/ disc, low and stack\+Member are now hash tables because we remove the hypotesis that vertex ids go from 0 to N-\/1\+: ~\newline
+ when working on a subgraph (as a slave process), there are no guarantees on the order nor continuity of the vertex ids. ~\newline
+ Using hash tables instead of arrays we save a lot of memory. ~\newline
+ -\/ we remove the hypotesis that every vertex in an adjacency map exists in the graph. This is also caused by executions ~\newline
+ on subgraphs of a given graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\+\_\+int$\ast$ array containing all the found SCCs. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}\label{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}} 
+\index{graph.c@{graph.c}!graph\_tarjan\_foreach@{graph\_tarjan\_foreach}}
+\index{graph\_tarjan\_foreach@{graph\_tarjan\_foreach}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_tarjan\_foreach()}{graph\_tarjan\_foreach()}}
+{\footnotesize\ttfamily void graph\+\_\+tarjan\+\_\+foreach (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{void($\ast$)(array\+\_\+int $\ast$)}]{f }\end{DoxyParamCaption})}
+
+
+
+This function takes as input a graph and a callback function f. It finds all the SCCs in the graph and each time it finds one it calls the callback function f on the SCC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em f} & callback function. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_aa167e922a8e42481edb364dd723eb3d4}\label{graph_8c_aa167e922a8e42481edb364dd723eb3d4}} 
+\index{graph.c@{graph.c}!graph\_tarjan\_foreach\_helper@{graph\_tarjan\_foreach\_helper}}
+\index{graph\_tarjan\_foreach\_helper@{graph\_tarjan\_foreach\_helper}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_tarjan\_foreach\_helper()}{graph\_tarjan\_foreach\_helper()}}
+{\footnotesize\ttfamily void graph\+\_\+tarjan\+\_\+foreach\+\_\+helper (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{node,  }\item[{khash\+\_\+t(m32) $\ast$}]{disc,  }\item[{khash\+\_\+t(m32) $\ast$}]{low,  }\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{stack,  }\item[{khash\+\_\+t(m32) $\ast$}]{stack\+Member,  }\item[{int $\ast$}]{time,  }\item[{array\+\_\+int $\ast$}]{scc,  }\item[{void($\ast$)(array\+\_\+int $\ast$)}]{f }\end{DoxyParamCaption})}
+
+
+
+This function is an helper function for \mbox{\hyperlink{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}{graph\+\_\+tarjan\+\_\+foreach()}}. For more info see documentation for \mbox{\hyperlink{graph_8c_adb71a3e52b70daf9a1f91efced7fd1a5}{graph\+\_\+tarjan\+\_\+foreach()}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em node} & integer which represents the node. \\
+\hline
+{\em stack} & stack data structure. \\
+\hline
+{\em time} & pointer to an integer. \\
+\hline
+{\em scc} & array containing the SCCs. \\
+\hline
+{\em f} & callback function. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_ab67410d3c53f6f1f92908be8a90ad995}\label{graph_8c_ab67410d3c53f6f1f92908be8a90ad995}} 
+\index{graph.c@{graph.c}!graph\_tarjan\_helper@{graph\_tarjan\_helper}}
+\index{graph\_tarjan\_helper@{graph\_tarjan\_helper}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{graph\_tarjan\_helper()}{graph\_tarjan\_helper()}}
+{\footnotesize\ttfamily void graph\+\_\+tarjan\+\_\+helper (\begin{DoxyParamCaption}\item[{graph\+\_\+t $\ast$}]{G,  }\item[{int}]{node,  }\item[{khash\+\_\+t(m32) $\ast$}]{disc,  }\item[{khash\+\_\+t(m32) $\ast$}]{low,  }\item[{\mbox{\hyperlink{structlinkedlist__int}{linkedlist\+\_\+int}} $\ast$}]{stack,  }\item[{khash\+\_\+t(m32) $\ast$}]{stack\+Member,  }\item[{int $\ast$}]{time,  }\item[{array\+\_\+int $\ast$}]{result }\end{DoxyParamCaption})}
+
+
+
+This function is an helper function for \mbox{\hyperlink{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}{graph\+\_\+tarjan()}}. For more info see documentation for \mbox{\hyperlink{graph_8c_a7889de5b4031ad8100fa6ac37d8392f6}{graph\+\_\+tarjan()}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & graph data structure. \\
+\hline
+{\em node} & pointer to an integer. \\
+\hline
+{\em stack} & stack data structure. \\
+\hline
+{\em time} & pointer to an integer. \\
+\hline
+{\em result} & array data structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_abd8bbcfabb3ddef2ccaafb9928a37b95}\label{graph_8c_abd8bbcfabb3ddef2ccaafb9928a37b95}} 
+\index{graph.c@{graph.c}!min@{min}}
+\index{min@{min}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily int min (\begin{DoxyParamCaption}\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+This function takes two integers as input and returns the minimum integer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & first integer. \\
+\hline
+{\em b} & second integer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+minimum. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a8549c916368233448ccf00534b504749}\label{graph_8c_a8549c916368233448ccf00534b504749}} 
+\index{graph.c@{graph.c}!scc\_set\_add@{scc\_set\_add}}
+\index{scc\_set\_add@{scc\_set\_add}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_add()}{scc\_set\_add()}}
+{\footnotesize\ttfamily void scc\+\_\+set\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{S,  }\item[{int}]{scc\+\_\+id,  }\item[{array\+\_\+int $\ast$}]{nodes }\end{DoxyParamCaption})}
+
+
+
+Add a new SCC to the set handling merges if needed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S} & the reference to the scc\+\_\+set. \\
+\hline
+{\em scc\+\_\+id} & the id of the SCC to be added. By convention, it is the lowest among the ids of the nodes in the SCC. \\
+\hline
+{\em nodes} & the nodes of the SCC. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a682977e02dc5974253b0022488fe5468}\label{graph_8c_a682977e02dc5974253b0022488fe5468}} 
+\index{graph.c@{graph.c}!scc\_set\_contains@{scc\_set\_contains}}
+\index{scc\_set\_contains@{scc\_set\_contains}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_contains()}{scc\_set\_contains()}}
+{\footnotesize\ttfamily bool scc\+\_\+set\+\_\+contains (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{b,  }\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+Check if scc set b contains all of scc set a\textquotesingle{}s content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em b} & the first scc\+\_\+set. \\
+\hline
+{\em a} & the second scc\+\_\+set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true scc set b contains all of scc set a\textquotesingle{}s content. 
+
+false scc set b not contains all of scc set a\textquotesingle{}s content. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a8c6cfd0e1a260549cffd6e1dc95a48b2}\label{graph_8c_a8c6cfd0e1a260549cffd6e1dc95a48b2}} 
+\index{graph.c@{graph.c}!scc\_set\_free@{scc\_set\_free}}
+\index{scc\_set\_free@{scc\_set\_free}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_free()}{scc\_set\_free()}}
+{\footnotesize\ttfamily void scc\+\_\+set\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{S }\end{DoxyParamCaption})}
+
+
+
+Destroy an scc\+\_\+set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S} & The scc\+\_\+set to be destroyed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a5e1742aecae1a04047d8206cc2d95c48}\label{graph_8c_a5e1742aecae1a04047d8206cc2d95c48}} 
+\index{graph.c@{graph.c}!scc\_set\_init@{scc\_set\_init}}
+\index{scc\_set\_init@{scc\_set\_init}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_init()}{scc\_set\_init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}}$\ast$ scc\+\_\+set\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize a new scc\+\_\+set. 
+
+\begin{DoxyReturn}{Returns}
+scc\+\_\+set\+\_\+t$\ast$ The scc\+\_\+set 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a3ba807e3fbeeed224587d3a609b84b9b}\label{graph_8c_a3ba807e3fbeeed224587d3a609b84b9b}} 
+\index{graph.c@{graph.c}!scc\_set\_load\_from\_file@{scc\_set\_load\_from\_file}}
+\index{scc\_set\_load\_from\_file@{scc\_set\_load\_from\_file}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_load\_from\_file()}{scc\_set\_load\_from\_file()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}}$\ast$ scc\+\_\+set\+\_\+load\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load scc set from file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the file to load the set from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+scc\+\_\+set\+\_\+t$\ast$ ssc set readed 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graph_8c_a7dbb2e7d19233634bfaddc3634a43a68}\label{graph_8c_a7dbb2e7d19233634bfaddc3634a43a68}} 
+\index{graph.c@{graph.c}!scc\_set\_merge@{scc\_set\_merge}}
+\index{scc\_set\_merge@{scc\_set\_merge}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_merge()}{scc\_set\_merge()}}
+{\footnotesize\ttfamily void scc\+\_\+set\+\_\+merge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{dest,  }\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+
+Merge src scc\+\_\+set into dest. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & the reference of the destination scc\+\_\+set. \\
+\hline
+{\em src} & the reference of the source scc\+\_\+set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a74ea6f1044877da655f14a3a1ce2fb30}\label{graph_8c_a74ea6f1044877da655f14a3a1ce2fb30}} 
+\index{graph.c@{graph.c}!scc\_set\_print\_debug@{scc\_set\_print\_debug}}
+\index{scc\_set\_print\_debug@{scc\_set\_print\_debug}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_print\_debug()}{scc\_set\_print\_debug()}}
+{\footnotesize\ttfamily void scc\+\_\+set\+\_\+print\+\_\+debug (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{S }\end{DoxyParamCaption})}
+
+
+
+print an scc\+\_\+set 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S} & ssc\+\_\+set to be printed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graph_8c_a403d34ed9cdcf8b1db1afb0367fb59c9}\label{graph_8c_a403d34ed9cdcf8b1db1afb0367fb59c9}} 
+\index{graph.c@{graph.c}!scc\_set\_save\_to\_file@{scc\_set\_save\_to\_file}}
+\index{scc\_set\_save\_to\_file@{scc\_set\_save\_to\_file}!graph.c@{graph.c}}
+\doxysubsubsection{\texorpdfstring{scc\_set\_save\_to\_file()}{scc\_set\_save\_to\_file()}}
+{\footnotesize\ttfamily void scc\+\_\+set\+\_\+save\+\_\+to\+\_\+file (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structscc__set__t}{scc\+\_\+set\+\_\+t}} $\ast$}]{S,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Write scc set to file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S} & the scc\+\_\+set to be saved. \\
+\hline
+{\em filename} & the file to be saved to. \\
+\hline
+\end{DoxyParams}
